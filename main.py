@@ -12,13 +12,16 @@ nombre = " "
 segundo_nombre = " "
 apellido_p = " "
 apellido_m = " "
+crear_usuario = []
 usuario = []
+clave = ""
+clave_confirmar = ""
+usuario_completo = []
 #-----------------------------
+intentos = 3
 opciones = " "
 resp = " "
 boleta = " "
-clave = ""
-clave_confirmar = ""
 rut = 0
 Num_trans = 0
 efectivo = 0
@@ -49,19 +52,19 @@ while noesfindejornada:
         while haymasopciones:
             print("Ingrese primer nombre del usuario: ")
             nombre = input()
-            usuario.append(nombre)
+            crear_usuario.append(nombre)
             print("Ingrese segundo nombre: ")
             segundo_nombre = input()
-            usuario.append(segundo_nombre)
+            crear_usuario.append(segundo_nombre)
             print("Ingrese apellido paterno: ")
             apellido_p = input()
-            usuario.append(apellido_p)
+            crear_usuario.append(apellido_p)
             print("Ingrese apellido materno: ")
             apellido_m = input()
-            usuario.append(apellido_m)
+            crear_usuario.append(apellido_m)
             print("Ingrese rut: ")
             rut = input()
-            usuario.append(rut)
+            crear_usuario.append(rut)
             print("Crear clave: ")
             clave = input()
             while clave != clave_confirmar:
@@ -69,33 +72,47 @@ while noesfindejornada:
                 clave_confirmar = input()
                 if clave == clave_confirmar:
                         print("Clave confirmada")
-                        usuario.append(clave)
+                        crear_usuario.append(clave)
                         haymasopciones = False
                 else:
                         print("Las claves no coinciden, intente nuevamente")
-
-
-
+            usuario = crear_usuario[:]
+            usuario_completo = usuario
+            print(usuario)
     elif opcion == "2":
         haymasopciones = True
         while haymasopciones:
-          print("Ingrese nombre de la cuenta: ")
-          print("Ingrese clave: ")
-          opcion = input()
+            print("Ingrese nombre de la cuenta: ")
+            nombre = input()
+            for i in range(intentos):
+                print("tienes {} intentos:".format(i))
+                print("ingrese nombre: ")
+                nombre = input()
+                if i == 2:
+                  print("debe crear otra cuenta")
+                  haymasopciones = False
+                elif nombre is usuario:
+                    i = 2
+            print("Ingrese clave: ")
+            clave = input()
+            while not clave in usuario:
+                print("clave no es valida \n ingrese una clave valida")
+                clave = input()
+
     elif opcion == "3":
         haymasopciones = True
         while haymasopciones:
-          print("Ingreso de colaboradores: ")
-          print(("Ingrese la clave: "))
-          opcion = input()
+            print("Ingreso de colaboradores: ")
+            print(("Ingrese la clave: "))
+            opcion = input()
     elif opcion == "4":
         haymasopciones = True
         while haymasopciones:
-          print("Ingrese el mes en el cual desea agendar¨(entre 1 y 12): ")
-          mes = int(input())
-          if mes < 13 and mes > 0:
-             print("Agendado, muchas gracias!")
-          else: print ("Invalido")
+            print("Ingrese el mes en el cual desea agendar¨(entre 1 y 12): ")
+            mes = int(input())
+            if mes < 13 and mes > 0:
+                print("Agendado, muchas gracias!")
+            else: print ("Invalido")
     elif opcion == "5":
         noesfindejornada = True
         while haymasopciones:
