@@ -1,12 +1,4 @@
 #choripan
-opcion = ""
-noesfindejornada = True
-mes = " "
-horas = 10
-dia  = 0
-contador = 0
-hora_tomada = 0
-producto = ""
 #variables ususario
 nombre = " "
 segundo_nombre = " "
@@ -17,23 +9,35 @@ usuario = []
 clave = ""
 clave_confirmar = ""
 usuario_completo = []
+rut = 0
 #-----------------------------
+#variables generales
+haymasopciones = True
 intentos = 3
 opciones = " "
 resp = " "
 boleta = " "
-rut = 0
-Num_trans = 0
-efectivo = 0
-Tarjeta = 0
-tipo_pago = " "
-num_tarjeta = 0
-clave_tarjeta = 0
-bar_1 = " "
-horario = " "
-mod = 0
-modificar = ""
-contabilidad = " "
+contador = 0
+mes = " "
+opcion = ""
+noesfindejornada = True
+#-----------------------------
+#variables colaborador
+bar = " "
+clave_bar = " "
+bar_1 = "Tomas"
+bar_2 = "Agustin"
+clave_bar1 = "1234"
+clave_bar2 = "5678"
+horario_1 = []
+horario_2 = []
+ver_horario_1 = " "
+mod = ""
+mes = 0
+hora = 0
+nueva_hora = 0
+#-----------------------------
+ 
 
 print("Bienvenido!")
 
@@ -48,7 +52,6 @@ while noesfindejornada:
     opcion = input()
 
     if opcion == "1":
-        haymasopciones = True
         while haymasopciones:
             print("Ingrese primer nombre del usuario: ")
             nombre = input()
@@ -77,36 +80,83 @@ while noesfindejornada:
                 else:
                         print("Las claves no coinciden, intente nuevamente")
             usuario = crear_usuario[:]
-            usuario_completo = usuario
-            print(usuario)
+            usuario_completo.append(usuario)
+            print("Usuario creado con exito!")
     elif opcion == "2":
-        haymasopciones = True
         while haymasopciones:
-            print("Ingrese nombre de la cuenta: ")
+            print("Ingrese su nombre de usuario: ")
             nombre = input()
-            for i in range(intentos):
-                print("tienes {} intentos:".format(i))
-                print("ingrese nombre: ")
-                nombre = input()
-                if i == 2:
-                  print("debe crear otra cuenta")
-                  haymasopciones = False
-                elif nombre is usuario:
-                    i = 2
-            print("Ingrese clave: ")
+            print("Ingrese su clave: ")
             clave = input()
-            while not clave in usuario:
-                print("clave no es valida \n ingrese una clave valida")
-                clave = input()
+            if nombre in usuario and clave in usuario:
+                print("Bienvenido de nuevo!")
+                haymasopciones = False
+            else:
+                print("Usuario o clave incorrecta, intente nuevamente")
+                intentos -= 1
+                if intentos == 0:
+                    print("Se han agotado los intentos, vuelva a intentarlo mas tarde")
+                    haymasopciones = False
+                else:
+                    print("Le quedan {} intentos".format(intentos))
 
     elif opcion == "3":
-        haymasopciones = True
         while haymasopciones:
             print("Ingreso de colaboradores: ")
-            print(("Ingrese la clave: "))
-            opcion = input()
+            bar = input()
+            if bar == bar_1:
+                print("Ingrese la clave: ")
+                clave_bar = input()
+                if clave_bar == clave_bar1:
+                    print("Bienvenido Tomas!")
+                    print("Tu horario es de 9:00 a 18:00: ")
+                    print("Quieres ver tu horas agendadas? (si/no)")
+                    ver_horario_1 = input()
+                    if ver_horario_1 == "si":
+                        print("Estas son tus horas agendadas: ")
+                        print(horario_1)
+                        print("Quieres modificar tu horario? (si/no)")
+                        mod = input()
+                        if mod == "si":
+                            print("Ingrese el mes de la hora que desea modificar: ")
+                            mes = int(input())
+                            print("Ingrese la hora que desea modificar: ")
+                            hora = int(input())
+                            horario_1.remove((mes, hora))
+                            print("Ingrese la nueva hora: ")
+                            nueva_hora = int(input())
+                            horario_1.append((mes, nueva_hora))
+                            print("Horario modificado con exito!")
+                            print("Estas son tus horas agendadas: ")
+                            print(horario_1)
+                        elif mod == "no":
+                            print("No se ha modificado el horario")
+                        else:
+                            print("Opcion invalida, no se ha modificado el horario")
+                        
+                    else:
+                        print("Hasta luego!")
+                        haymasopciones = False
+    
+                else:
+                    print("Clave incorrecta, intente nuevamente")
+            elif bar == bar_2:
+                print("Ingrese la clave: ")
+                clave_bar = input()
+                if clave_bar == clave_bar2:
+                    print("Bienvenido Agustin!")
+                    haymasopciones = False
+                else:
+                    print("Clave incorrecta, intente nuevamente")
+            else:
+                print("Colaborador no registrado, intente nuevamente")
+                intentos -= 1
+                if intentos == 0:
+                    print("Se han agotado los intentos, vuelva a intentarlo mas tarde")
+                    haymasopciones = False
+                else:
+                    print("Le quedan {} intentos".format(intentos))
     elif opcion == "4":
-        haymasopciones = True
         while haymasopciones:
             print("Ingrese el mes en el cual desea agendar¨(entre 1 y 12): ")
             mes = int(input())
@@ -114,7 +164,6 @@ while noesfindejornada:
                 print("Agendado, muchas gracias!")
             else: print ("Invalido")
     elif opcion == "5":
-        noesfindejornada = True
         while haymasopciones:
            print ("naxoweko")
     elif opcion == "6":
