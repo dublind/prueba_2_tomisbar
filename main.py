@@ -1,5 +1,7 @@
+#13-05-25 10:52
 #Choripan 09/05/2025 21:33 (Arreglado el error de agendar otros meses y el de reagendar horas,
 # testeado tanto en Agustin cmo en Tomi), falta asignar un texto y un retorno en caso de que elijan una fecha invalida
+import random 
 nombre = " "
 segundo_nombre = " "
 apellido_p = " "
@@ -9,7 +11,6 @@ usuario = []
 clave = ""
 clave_confirmar = ""
 usuario_completo = []
-rut = 0
 #-----------------------------
 #variables generales
 haymasopciones = True
@@ -44,6 +45,12 @@ cambio_hora = 0
 correo = " "
 nombre_mail = " "
 #-----------------------------
+#tipo de pago
+rut = " "
+tipo_pago = 0
+tarjeta = 1
+efectovio = 2
+
 
 print("Bienvenido!")
 
@@ -119,7 +126,6 @@ while noesfindejornada:
             if bar == bar_1:
                 print("Ingrese la clave: ")
                 clave_bar = input()
-
                 if clave_bar == clave_bar1:
                     print("Bienvenido Tomas!")
                     print("Tu horario es de 9:00 a 18:00: ")
@@ -216,11 +222,9 @@ while noesfindejornada:
                     print("Clave incorrecta, intente nuevamente")
     elif opcion == "4":
         haymasopciones = True
-        print("Bienvenido a la agenda de horarios!. \n")
         while haymasopciones:
-            print("Ingrese su nombre de usuario: ")
-            nombre = input()
-            if nombre in usuario:
+            if nombre in usuario and clave in usuario:
+                print("Bienvenido a la agenda de horarios!. \n")
                 print("{} desea agendar con Tomas o Agustin? (Tomas/Agustin)".format(nombre))
                 bar = input()
                 if bar == "Agustin":
@@ -249,6 +253,7 @@ while noesfindejornada:
                                     print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
                                     horario_2.append([dia, mes, hora_real])
                                     print("Gracias por su consulta!")
+                                    
                                     haymasopciones = False
                                 else:
                                     print("Hora invalida, intente nuevamente")
@@ -373,14 +378,23 @@ while noesfindejornada:
                                     print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
                                     horario_1.append([dia, mes, hora_real])
                                     print("Gracias por su consulta!")
+                                    print("Ingrese datos de boleta: ")
+                                    print("Ingrese rut: ")
+                                    rut = input()
+                                    print("Ingrese tipo de pago: ")
+                                    print("1- Efectivo \n 2- Tarjeta")
+                                    tipo_pago = ()
+                                    if tipo_pago == 1:
+                                            print("perfecto, {}")
                                     haymasopciones = False
                                 else:
                                     print("Hora invalida, intente nuevamente")
                         else:
                             print("mes invalido, intente nuevamente")
                 haymasopciones = False
-                
-
+            else:
+                print("Debe crear un usuario")
+                haymasopciones = False
 
     elif opcion == "5":
         haymasopciones = True
