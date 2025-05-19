@@ -1,7 +1,8 @@
-#13-05-25 10:52
-#Choripan 09/05/2025 21:33 (Arreglado el error de agendar otros meses y el de reagendar horas,
-# testeado tanto en Agustin cmo en Tomi), falta asignar un texto y un retorno en caso de que elijan una fecha invalida
-import random 
+#19-05-2025 
+
+import random
+#-----------------------------
+#usuario
 nombre = " "
 segundo_nombre = " "
 apellido_p = " "
@@ -11,6 +12,8 @@ usuario = []
 clave = ""
 clave_confirmar = ""
 usuario_completo = []
+num_usuario = 0
+todos_num_usuario = []
 #-----------------------------
 #variables generales
 haymasopciones = True
@@ -50,7 +53,7 @@ rut = " "
 tipo_pago = 0
 tarjeta = 1
 efectovio = 2
-
+guardar_boleta = []
 
 print("Bienvenido!")
 
@@ -106,8 +109,10 @@ while noesfindejornada:
             print("Ingrese su clave: ")
             clave = input()
             if nombre in usuario and clave in usuario:
+                num_usuario = num_usuario + 1
+                todos_num_usuario.append(num_usuario)
                 print("Bienvenido de nuevo!")
-                print("{} su numero de usuario ".format(nombre))
+                print("{} su numero de usuario es : {}".format(nombre, num_usuario))
                 haymasopciones = False
             else:
                 print("Usuario o clave incorrecta, intente nuevamente")
@@ -223,9 +228,11 @@ while noesfindejornada:
     elif opcion == "4":
         haymasopciones = True
         while haymasopciones:
-            if nombre in usuario and clave in usuario:
+            print("ingrese su numero de ususario: ")
+            num_usuario = int(input())
+            if num_usuario in todos_num_usuario:
                 print("Bienvenido a la agenda de horarios!. \n")
-                print("{} desea agendar con Tomas o Agustin? (Tomas/Agustin)".format(nombre))
+                print("usuario {} desea agendar con Tomas o Agustin? (Tomas/Agustin)".format(num_usuario))
                 bar = input()
                 if bar == "Agustin":
                     print("Agustin")
@@ -235,7 +242,7 @@ while noesfindejornada:
                         if mes == 1 or mes == 3 or mes == 5 or mes == 7 or mes == 8 or mes == 10 or mes == 12:
                             print("Ingrese el dia (entre 1 y 31): ")
                             dia = int(input())
-                            if dia < 32 and dia > 0:
+                            if dia < 31 and dia > 0:
                                 print("1- 9:00")
                                 print("2- 10:00")
                                 print("3- 11:00")
@@ -251,13 +258,112 @@ while noesfindejornada:
                                 if hora < 11 and hora > 0:
                                     hora_real = (hora +8)
                                     print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
-                                    horario_2.append([dia, mes, hora_real])
+                                    horario_1.append([dia, mes, hora_real])
                                     print("Gracias por su consulta!")
-                                    
                                     haymasopciones = False
                                 else:
-                                    print("Hora invalida, intente nuevamente")
-
+                                    while hora > 11 or hora < 0:
+                                        print("hora invalida, intente nuevamente")
+                                        hora = int(input())
+                                        if hora < 11 and hora > 0:
+                                            hora_real = (hora +8)
+                                            print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                            horario_1.append([dia, mes, hora_real])
+                                            print("Ingrese rut: ")
+                                            rut = input()
+                                            print("Ingrese tipo de pago: ")
+                                            print("1- Efectivo \n 2- Tarjeta")
+                                            tipo_pago = ()
+                                            while tipo_pago != 1 or tipo_pago != 2:
+                                                tipo_pago = int(input())
+                                                if tipo_pago == 1:
+                                                    print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                    print("hasta luego {}".format(nombre))
+                                                    haymasopciones = False
+                                                elif tipo_pago == 2:
+                                                    print("perfecto, {}".format(nombre))
+                                                    boleta = random.randint(1000, 9999)
+                                                    print("su boleta es: {}".format(boleta))
+                                                    guardar_boleta.append([boleta, rut])
+                                                    print("Gracias por su consulta!")
+                                                    haymasopciones = False
+                                                else:
+                                                    print("")
+                                                    print("tipo de pago invalido, intente nuevamente")
+                                                    print("1- Efectivo \n 2- Tarjeta")
+                            else:
+                                while dia > 31 or dia < 0:
+                                    print("dia invalido, intente nuevamente")
+                                    dia = int(input())
+                                    if dia < 31 and dia > 0:
+                                        print("1- 9:00")
+                                        print("2- 10:00")
+                                        print("3- 11:00")
+                                        print("4- 12:00")
+                                        print("5- 13:00")
+                                        print("6- 14:00")
+                                        print("7- 15:00")
+                                        print("8- 16:00")
+                                        print("9- 17:00")
+                                        print("10- 18:00")
+                                        print ("Seleccione su hora (entre 9:00 y 18:00 horas)")
+                                        hora = int(input())
+                                        if hora < 11 and hora > 0:
+                                            hora_real = (hora +8)
+                                            print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                            horario_1.append([dia, mes, hora_real])
+                                            print("Ingrese rut: ")
+                                            rut = input()
+                                            print("Ingrese tipo de pago: ")
+                                            print("1- Efectivo \n 2- Tarjeta")
+                                            tipo_pago = ()
+                                            while tipo_pago != 1 or tipo_pago != 2:
+                                                tipo_pago = int(input())
+                                                if tipo_pago == 1:
+                                                    print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                    print("hasta luego {}".format(nombre))
+                                                    haymasopciones = False
+                                                elif tipo_pago == 2:
+                                                    print("perfecto, {}".format(nombre))
+                                                    boleta = random.randint(1000, 9999)
+                                                    print("su boleta es: {}".format(boleta))
+                                                    guardar_boleta.append([boleta, rut])
+                                                    print("Gracias por su consulta!")
+                                                    haymasopciones = False
+                                                else:
+                                                        print("")
+                                                        print("tipo de pago invalido, intente nuevamente")
+                                                        print("1- Efectivo \n 2- Tarjeta")
+                                        else :
+                                            while hora > 10 or hora < 0:
+                                                print("hora invalida, intente nuevamente")
+                                                hora = int(input())
+                                                if hora < 11 and hora > 0:
+                                                    hora_real = (hora +8)
+                                                    print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                                    horario_1.append([dia, mes, hora_real])
+                                                    print("Ingrese rut: ")
+                                                    rut = input()
+                                                    print("Ingrese tipo de pago: ")
+                                                    print("1- Efectivo \n 2- Tarjeta")
+                                                    tipo_pago = ()
+                                                    while tipo_pago != 1 or tipo_pago != 2:
+                                                        tipo_pago = int(input())
+                                                        if tipo_pago == 1:
+                                                            print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                            print("hasta luego {}".format(nombre))
+                                                            haymasopciones = False
+                                                        elif tipo_pago == 2:
+                                                            print("perfecto, {}".format(nombre))
+                                                            boleta = random.randint(1000, 9999)
+                                                            print("su boleta es: {}".format(boleta))
+                                                            guardar_boleta.append([boleta, rut])
+                                                            print("Gracias por su consulta!")
+                                                            haymasopciones = False
+                                                        else:
+                                                            print("")
+                                                            print("tipo de pago invalido, intente nuevamente")
+                                                            print("1- Efectivo \n 2- Tarjeta")                        
                         elif mes == 2:
                             print("Ingrese el dia (entre 1 y 28): ")
                             dia = int(input())
@@ -277,9 +383,76 @@ while noesfindejornada:
                                 if hora < 11 and hora > 0:
                                     hora_real = (hora +8)
                                     print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
-                                    horario_2.append([dia, mes, hora_real, nombre])
+                                    horario_1.append([dia, mes, hora_real])
                                     print("Gracias por su consulta!")
                                     haymasopciones = False
+                                else:
+                                    while hora > 10 or hora < 0:
+                                        print("hora invalida, intente nuevamente")
+                                        hora = int(input())
+                                        if hora < 11 and hora > 0:
+                                            hora_real = (hora +8)
+                                            print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                            horario_1.append([dia, mes, hora_real])
+                                            print("Ingrese rut: ")
+                                            rut = input()
+                                            print("Ingrese tipo de pago: ")
+                                            print("1- Efectivo \n 2- Tarjeta")
+                                            tipo_pago = ()
+                                            while tipo_pago != 1 or tipo_pago != 2:
+                                                tipo_pago = int(input())
+                                                if tipo_pago == 1:
+                                                    print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                    print("hasta luego {}".format(nombre))
+                                                    haymasopciones = False
+                                                elif tipo_pago == 2:
+                                                    print("perfecto, {}".format(nombre))
+                                                    boleta = random.randint(1000, 9999)
+                                                    print("su boleta es: {}".format(boleta))
+                                                    guardar_boleta.append([boleta, rut])
+                            else:
+                                while dia > 29 or dia < 0:
+                                    print("dia invalido, intente nuevamente")
+                                    dia = int(input())
+                                    if dia < 29 and dia > 0:
+                                        print("1- 9:00")
+                                        print("2- 10:00")
+                                        print("3- 11:00")
+                                        print("4- 12:00")
+                                        print("5- 13:00")
+                                        print("6- 14:00")
+                                        print("7- 15:00")
+                                        print("8- 16:00")
+                                        print("9- 17:00")
+                                        print("10- 18:00")
+                                        print ("Seleccione su hora (entre 9:00 y 18:00 horas)")
+                                        hora = int(input())
+                                    if hora < 11 and hora > 0:
+                                        hora_real = (hora +8)
+                                        print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                        horario_1.append([dia, mes, hora_real])
+                                        print("Ingrese rut: ")
+                                        rut = input()
+                                        print("Ingrese tipo de pago: ")
+                                        print("1- Efectivo \n 2- Tarjeta")
+                                        tipo_pago = ()
+                                        while tipo_pago != 1 or tipo_pago != 2:
+                                            tipo_pago = int(input())
+                                            if tipo_pago == 1:
+                                                print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                print("hasta luego {}".format(nombre))
+                                                haymasopciones = False
+                                            elif tipo_pago == 2:
+                                                print("perfecto, {}".format(nombre))
+                                                boleta = random.randint(1000, 9999)
+                                                print("su boleta es: {}".format(boleta))
+                                                guardar_boleta.append([boleta, rut])
+                                                print("Gracias por su consulta!")
+                                                haymasopciones = False
+                                            else:
+                                                print("")
+                                                print("tipo de pago invalido, intente nuevamente")
+                                                print("1- Efectivo \n 2- Tarjeta")
                         elif mes == 4 or mes == 6 or mes == 9 or mes == 11:
                             print("Ingrese el dia (entre 1 y 30): ")
                             dia = int(input())
@@ -299,20 +472,89 @@ while noesfindejornada:
                                 if hora < 11 and hora > 0:
                                     hora_real = (hora +8)
                                     print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
-                                    horario_2.append([dia, mes, hora_real])
+                                    horario_1.append([dia, mes, hora_real])
                                     print("Gracias por su consulta!")
                                     haymasopciones = False
-                    else:
-                        print("mes invalido, intente nuevamente \n")
+                                else:
+                                    while hora > 10 or hora < 0:
+                                        print("hora invalida, intente nuevamente")
+                                        hora = int(input())
+                                        if hora < 11 and hora > 0:
+                                            hora_real = (hora +8)
+                                            print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                            horario_1.append([dia, mes, hora_real])
+                                            print("Ingrese rut: ")
+                                            rut = input()
+                                            print("Ingrese tipo de pago: ")
+                                            print("1- Efectivo \n 2- Tarjeta")
+                                            tipo_pago = ()
+                                            while tipo_pago != 1 or tipo_pago != 2:
+                                                tipo_pago = int(input())
+                                                if tipo_pago == 1:
+                                                    print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                    print("hasta luego {}".format(nombre))
+                                                    haymasopciones = False
+                                                elif tipo_pago == 2:
+                                                    print("perfecto, {}".format(nombre))
+                                                    boleta = random.randint(1000, 9999)
+                                                    print("su boleta es: {}".format(boleta))
+                                                    guardar_boleta.append([boleta, rut])
+                            else:
+                                while dia > 31 or dia < 0:
+                                    print("dia invalido, intente nuevamente")
+                                    dia = int(input())
+                                    if dia < 31 and dia > 0:
+                                        print("1- 9:00")
+                                        print("2- 10:00")
+                                        print("3- 11:00")
+                                        print("4- 12:00")
+                                        print("5- 13:00")
+                                        print("6- 14:00")
+                                        print("7- 15:00")
+                                        print("8- 16:00")
+                                        print("9- 17:00")
+                                        print("10- 18:00")
+                                        print ("Seleccione su hora (entre 9:00 y 18:00 horas)")
+                                        hora = int(input())
+                                    if hora < 11 and hora > 0:
+                                        hora_real = (hora +8)
+                                        print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                        horario_1.append([dia, mes, hora_real])
+                                        print("Ingrese rut: ")
+                                        rut = input()
+                                        print("Ingrese tipo de pago: ")
+                                        print("1- Efectivo \n 2- Tarjeta")
+                                        tipo_pago = ()
+                                        while tipo_pago != 1 or tipo_pago != 2:
+                                            tipo_pago = int(input())
+                                            if tipo_pago == 1:
+                                                print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                print("hasta luego {}".format(nombre))
+                                                haymasopciones = False
+                                            elif tipo_pago == 2:
+                                                print("perfecto, {}".format(nombre))
+                                                boleta = random.randint(1000, 9999)
+                                                print("su boleta es: {}".format(boleta))
+                                                guardar_boleta.append([boleta, rut])
+                                                print("Gracias por su consulta!")
+                                                haymasopciones = False
+                                            else:
+                                                print("")
+                                                print("tipo de pago invalido, intente nuevamente")
+                                                print("1- Efectivo \n 2- Tarjeta")  
+                        else:
+                            print("mes invalido, intente nuevamente")
+                            mes = int(input())                                     
                 elif bar == "Tomas":
                     print("de Tomas")
+                    print("Agustin")
                     print("Ingrese el mes en el cual desea agendar¨(entre 1 y 12): ")
                     mes = int(input())
                     if mes < 13 and mes > 0:
                         if mes == 1 or mes == 3 or mes == 5 or mes == 7 or mes == 8 or mes == 10 or mes == 12:
                             print("Ingrese el dia (entre 1 y 31): ")
                             dia = int(input())
-                            if dia < 32 and dia > 0:
+                            if dia < 31 and dia > 0:
                                 print("1- 9:00")
                                 print("2- 10:00")
                                 print("3- 11:00")
@@ -332,7 +574,108 @@ while noesfindejornada:
                                     print("Gracias por su consulta!")
                                     haymasopciones = False
                                 else:
-                                    print("Hora invalida, intente nuevamente")
+                                    while hora > 11 or hora < 0:
+                                        print("hora invalida, intente nuevamente")
+                                        hora = int(input())
+                                        if hora < 11 and hora > 0:
+                                            hora_real = (hora +8)
+                                            print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                            horario_1.append([dia, mes, hora_real])
+                                            print("Ingrese rut: ")
+                                            rut = input()
+                                            print("Ingrese tipo de pago: ")
+                                            print("1- Efectivo \n 2- Tarjeta")
+                                            tipo_pago = ()
+                                            while tipo_pago != 1 or tipo_pago != 2:
+                                                tipo_pago = int(input())
+                                                if tipo_pago == 1:
+                                                    print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                    print("hasta luego {}".format(nombre))
+                                                    haymasopciones = False
+                                                elif tipo_pago == 2:
+                                                    print("perfecto, {}".format(nombre))
+                                                    boleta = random.randint(1000, 9999)
+                                                    print("su boleta es: {}".format(boleta))
+                                                    guardar_boleta.append([boleta, rut])
+                                                    print("Gracias por su consulta!")
+                                                    haymasopciones = False
+                                                else:
+                                                    print("")
+                                                    print("tipo de pago invalido, intente nuevamente")
+                                                    print("1- Efectivo \n 2- Tarjeta")
+                            else:
+                                while dia > 31 or dia < 0:
+                                    print("dia invalido, intente nuevamente")
+                                    dia = int(input())
+                                    if dia < 31 and dia > 0:
+                                        print("1- 9:00")
+                                        print("2- 10:00")
+                                        print("3- 11:00")
+                                        print("4- 12:00")
+                                        print("5- 13:00")
+                                        print("6- 14:00")
+                                        print("7- 15:00")
+                                        print("8- 16:00")
+                                        print("9- 17:00")
+                                        print("10- 18:00")
+                                        print ("Seleccione su hora (entre 9:00 y 18:00 horas)")
+                                        hora = int(input())
+                                        if hora < 11 and hora > 0:
+                                            hora_real = (hora +8)
+                                            print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                            horario_1.append([dia, mes, hora_real])
+                                            print("Ingrese rut: ")
+                                            rut = input()
+                                            print("Ingrese tipo de pago: ")
+                                            print("1- Efectivo \n 2- Tarjeta")
+                                            tipo_pago = ()
+                                            while tipo_pago != 1 or tipo_pago != 2:
+                                                tipo_pago = int(input())
+                                                if tipo_pago == 1:
+                                                    print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                    print("hasta luego {}".format(nombre))
+                                                    haymasopciones = False
+                                                elif tipo_pago == 2:
+                                                    print("perfecto, {}".format(nombre))
+                                                    boleta = random.randint(1000, 9999)
+                                                    print("su boleta es: {}".format(boleta))
+                                                    guardar_boleta.append([boleta, rut])
+                                                    print("Gracias por su consulta!")
+                                                    haymasopciones = False
+                                                else:
+                                                        print("")
+                                                        print("tipo de pago invalido, intente nuevamente")
+                                                        print("1- Efectivo \n 2- Tarjeta")
+                                        else :
+                                            while hora > 10 or hora < 0:
+                                                print("hora invalida, intente nuevamente")
+                                                hora = int(input())
+                                                if hora < 11 and hora > 0:
+                                                    hora_real = (hora +8)
+                                                    print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                                    horario_1.append([dia, mes, hora_real])
+                                                    print("Ingrese rut: ")
+                                                    rut = input()
+                                                    print("Ingrese tipo de pago: ")
+                                                    print("1- Efectivo \n 2- Tarjeta")
+                                                    tipo_pago = ()
+                                                    while tipo_pago != 1 or tipo_pago != 2:
+                                                        tipo_pago = int(input())
+                                                        if tipo_pago == 1:
+                                                            print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                            print("hasta luego {}".format(nombre))
+                                                            haymasopciones = False
+                                                        elif tipo_pago == 2:
+                                                            print("perfecto, {}".format(nombre))
+                                                            boleta = random.randint(1000, 9999)
+                                                            print("su boleta es: {}".format(boleta))
+                                                            guardar_boleta.append([boleta, rut])
+                                                            print("Gracias por su consulta!")
+                                                            haymasopciones = False
+                                                        else:
+                                                            print("")
+                                                            print("tipo de pago invalido, intente nuevamente")
+                                                            print("1- Efectivo \n 2- Tarjeta")                        
                         elif mes == 2:
                             print("Ingrese el dia (entre 1 y 28): ")
                             dia = int(input())
@@ -356,7 +699,72 @@ while noesfindejornada:
                                     print("Gracias por su consulta!")
                                     haymasopciones = False
                                 else:
-                                    print("Hora invalida, intente nuevamente")
+                                    while hora > 10 or hora < 0:
+                                        print("hora invalida, intente nuevamente")
+                                        hora = int(input())
+                                        if hora < 11 and hora > 0:
+                                            hora_real = (hora +8)
+                                            print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                            horario_1.append([dia, mes, hora_real])
+                                            print("Ingrese rut: ")
+                                            rut = input()
+                                            print("Ingrese tipo de pago: ")
+                                            print("1- Efectivo \n 2- Tarjeta")
+                                            tipo_pago = ()
+                                            while tipo_pago != 1 or tipo_pago != 2:
+                                                tipo_pago = int(input())
+                                                if tipo_pago == 1:
+                                                    print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                    print("hasta luego {}".format(nombre))
+                                                    haymasopciones = False
+                                                elif tipo_pago == 2:
+                                                    print("perfecto, {}".format(nombre))
+                                                    boleta = random.randint(1000, 9999)
+                                                    print("su boleta es: {}".format(boleta))
+                                                    guardar_boleta.append([boleta, rut])
+                            else:
+                                while dia > 29 or dia < 0:
+                                    print("dia invalido, intente nuevamente")
+                                    dia = int(input())
+                                    if dia < 29 and dia > 0:
+                                        print("1- 9:00")
+                                        print("2- 10:00")
+                                        print("3- 11:00")
+                                        print("4- 12:00")
+                                        print("5- 13:00")
+                                        print("6- 14:00")
+                                        print("7- 15:00")
+                                        print("8- 16:00")
+                                        print("9- 17:00")
+                                        print("10- 18:00")
+                                        print ("Seleccione su hora (entre 9:00 y 18:00 horas)")
+                                        hora = int(input())
+                                    if hora < 11 and hora > 0:
+                                        hora_real = (hora +8)
+                                        print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                        horario_1.append([dia, mes, hora_real])
+                                        print("Ingrese rut: ")
+                                        rut = input()
+                                        print("Ingrese tipo de pago: ")
+                                        print("1- Efectivo \n 2- Tarjeta")
+                                        tipo_pago = ()
+                                        while tipo_pago != 1 or tipo_pago != 2:
+                                            tipo_pago = int(input())
+                                            if tipo_pago == 1:
+                                                print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                print("hasta luego {}".format(nombre))
+                                                haymasopciones = False
+                                            elif tipo_pago == 2:
+                                                print("perfecto, {}".format(nombre))
+                                                boleta = random.randint(1000, 9999)
+                                                print("su boleta es: {}".format(boleta))
+                                                guardar_boleta.append([boleta, rut])
+                                                print("Gracias por su consulta!")
+                                                haymasopciones = False
+                                            else:
+                                                print("")
+                                                print("tipo de pago invalido, intente nuevamente")
+                                                print("1- Efectivo \n 2- Tarjeta")
                         elif mes == 4 or mes == 6 or mes == 9 or mes == 11:
                             print("Ingrese el dia (entre 1 y 30): ")
                             dia = int(input())
@@ -378,24 +786,81 @@ while noesfindejornada:
                                     print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
                                     horario_1.append([dia, mes, hora_real])
                                     print("Gracias por su consulta!")
-                                    print("Ingrese datos de boleta: ")
-                                    print("Ingrese rut: ")
-                                    rut = input()
-                                    print("Ingrese tipo de pago: ")
-                                    print("1- Efectivo \n 2- Tarjeta")
-                                    tipo_pago = ()
-                                    if tipo_pago == 1:
-                                            print("perfecto, {}")
                                     haymasopciones = False
                                 else:
-                                    print("Hora invalida, intente nuevamente")
+                                    while hora > 10 or hora < 0:
+                                        print("hora invalida, intente nuevamente")
+                                        hora = int(input())
+                                        if hora < 11 and hora > 0:
+                                            hora_real = (hora +8)
+                                            print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                            horario_1.append([dia, mes, hora_real])
+                                            print("Ingrese rut: ")
+                                            rut = input()
+                                            print("Ingrese tipo de pago: ")
+                                            print("1- Efectivo \n 2- Tarjeta")
+                                            tipo_pago = ()
+                                            while tipo_pago != 1 or tipo_pago != 2:
+                                                tipo_pago = int(input())
+                                                if tipo_pago == 1:
+                                                    print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                    print("hasta luego {}".format(nombre))
+                                                    haymasopciones = False
+                                                elif tipo_pago == 2:
+                                                    print("perfecto, {}".format(nombre))
+                                                    boleta = random.randint(1000, 9999)
+                                                    print("su boleta es: {}".format(boleta))
+                                                    guardar_boleta.append([boleta, rut])
+                            else:
+                                while dia > 31 or dia < 0:
+                                    print("dia invalido, intente nuevamente")
+                                    dia = int(input())
+                                    if dia < 31 and dia > 0:
+                                        print("1- 9:00")
+                                        print("2- 10:00")
+                                        print("3- 11:00")
+                                        print("4- 12:00")
+                                        print("5- 13:00")
+                                        print("6- 14:00")
+                                        print("7- 15:00")
+                                        print("8- 16:00")
+                                        print("9- 17:00")
+                                        print("10- 18:00")
+                                        print ("Seleccione su hora (entre 9:00 y 18:00 horas)")
+                                        hora = int(input())
+                                    if hora < 11 and hora > 0:
+                                        hora_real = (hora +8)
+                                        print("{} ,su hora agendada es: {}-{}-{} a las {}:00".format(nombre, dia, mes, 2025, hora_real))
+                                        horario_1.append([dia, mes, hora_real])
+                                        print("Ingrese rut: ")
+                                        rut = input()
+                                        print("Ingrese tipo de pago: ")
+                                        print("1- Efectivo \n 2- Tarjeta")
+                                        tipo_pago = ()
+                                        while tipo_pago != 1 or tipo_pago != 2:
+                                            tipo_pago = int(input())
+                                            if tipo_pago == 1:
+                                                print("si deseas pagar con efectivo contactate con nosotros, en la opcion 5 ")
+                                                print("hasta luego {}".format(nombre))
+                                                haymasopciones = False
+                                            elif tipo_pago == 2:
+                                                print("perfecto, {}".format(nombre))
+                                                boleta = random.randint(1000, 9999)
+                                                print("su boleta es: {}".format(boleta))
+                                                guardar_boleta.append([boleta, rut])
+                                                print("Gracias por su consulta!")
+                                                haymasopciones = False
+                                            else:
+                                                print("")
+                                                print("tipo de pago invalido, intente nuevamente")
+                                                print("1- Efectivo \n 2- Tarjeta")  
                         else:
                             print("mes invalido, intente nuevamente")
-                haymasopciones = False
+                            mes = int(input())  
             else:
                 print("Debe crear un usuario")
                 haymasopciones = False
-
+                
     elif opcion == "5":
         haymasopciones = True
         while haymasopciones:
@@ -406,7 +871,6 @@ while noesfindejornada:
             print("Nos contactaremos muy pronto con usted {}".format(nombre_mail))
             print("Gracias por su consulta!")
             haymasopciones = False
-        haymasopciones = False
     elif opcion == "6":
         noesfindejornada = False
         print ("Hasta pronto!")
